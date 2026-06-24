@@ -884,6 +884,92 @@
     border: 0;
   }
 
+  /* Fix chart height inside closed <details> dropdowns */
+  .dropdown-body .chart-wrap { height: 220px; }
+
+  /* Narrative page */
+  .narrative-lead {
+    font-size: clamp(18px, 2.2vw, 24px);
+    font-weight: 500;
+    line-height: 1.45;
+    max-width: 860px;
+    margin-bottom: 48px;
+    color: var(--text);
+    border-left: 4px solid var(--accent);
+    padding-left: 22px;
+  }
+
+  .narrative-prose {
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 860px;
+  }
+
+  .narrative-prose p { margin-bottom: 22px; }
+  .narrative-prose p:last-child { margin-bottom: 0; }
+
+  /* Friction map */
+  .friction-map-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 32px; }
+
+  .friction-map {
+    min-width: 700px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .fm-row {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .fm-row:last-child { border-bottom: none; }
+
+  .fm-cell {
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.45;
+    border-right: 1px solid var(--border);
+  }
+
+  .fm-cell:last-child { border-right: none; }
+
+  .fm-row.fm-header-row .fm-cell {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    background: var(--light-grey);
+    padding: 12px 16px;
+    border-top: 4px solid transparent;
+  }
+
+  .fm-row.fm-header-row .fm-cell.acc-col { border-top-color: var(--accumulator); }
+  .fm-row.fm-header-row .fm-cell.rep-col { border-top-color: var(--replacer); }
+  .fm-row.fm-header-row .fm-cell.keep-col { border-top-color: var(--keeper); }
+  .fm-row.fm-header-row .fm-cell.clr-col { border-top-color: var(--clearer); }
+
+  .fm-stage { font-weight: 700; font-size: 13px; background: var(--light-grey); color: var(--text); }
+
+  .fm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  .fm-badge.high { background: #fee2e2; color: #b91c1c; }
+  .fm-badge.med  { background: #fef9c3; color: #92400e; }
+  .fm-badge.low  { background: #dcfce7; color: #166534; }
+
+  .fm-note { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
   /* Responsive — overview additions */
   @media (max-width: 900px) {
     .logo-row { gap: 12px; }
@@ -893,10 +979,53 @@
     .persona-grid-overview { gap: 12px; }
     .persona-grid-overview .persona-card { flex-direction: column; }
     .persona-card-img { width: 100%; height: 180px; object-fit: cover; }
+
+    /* Nav: stack logo + scrollable tabs */
+    .nav-inner { flex-direction: column; align-items: flex-start; gap: 0; padding: 10px 0 0; }
+    .logo-row { padding-bottom: 10px; }
+    .tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      width: calc(100% + 64px);
+      margin: 0 -32px;
+      padding: 0 32px 12px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 0;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab.active::after { bottom: 0; }
+
+    /* Briefs + grids */
+    .briefs-row { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; gap: 24px; padding-bottom: 40px; }
+    .areas-grid { grid-template-columns: 1fr; }
+    .persona-grid { grid-template-columns: 1fr; }
+    .stat-callouts { grid-template-columns: repeat(2, 1fr); }
+    .persona-top { grid-template-columns: 1fr; }
+    .persona-top > div:last-child { display: none; } /* hide portrait on tablet */
+
+    main { padding: 40px 0 60px; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 16px; }
+    .tabs { width: calc(100% + 32px); margin: 0 -16px; padding: 0 16px 10px; }
+    .persona-grid-overview { grid-template-columns: 1fr; }
+    .stat-callouts { grid-template-columns: 1fr; }
+    .persona-top > div:last-child { display: none; }
+    .brief-card { padding: 20px; }
+    .persona-card { padding: 22px; }
+    main { padding: 28px 0 48px; }
+    .section { padding: 40px 0; }
+    .pull-quote { padding: 32px 0; }
+    .persona-grid-overview .persona-card-img { height: 140px; }
   }
 
   @media (max-width: 480px) {
     .persona-grid-overview { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .logo-row img { height: 22px; }
   }
 
 </style>
@@ -913,6 +1042,7 @@
       </div>
       <nav class="tabs" role="tablist">
         <button class="tab active" data-tab="overview" role="tab">Overview</button>
+        <button class="tab" data-tab="narrative" role="tab">Story Behind the Numbers</button>
         <button class="tab" data-tab="brief1" role="tab">Brief 1: Closing the Exit Gap</button>
         <button class="tab" data-tab="brief2" role="tab">Brief 2: The Clearout Occasion</button>
         <button class="tab" data-tab="brief3" role="tab">Brief 3: Closing the Information Gap</button>
@@ -1094,6 +1224,187 @@
         <div class="body-prose">
           <p>The barriers here are structural, and they call for cross-sector thinking. Progress has been slow not for lack of effort, but because the problems span organisations, incentives, and infrastructure that no single actor controls.</p>
           <p>If you are working in this space and want to see things move, this is a day built for that purpose. Come ready to commit.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ NARRATIVE ============ -->
+    <section class="panel" id="panel-narrative">
+
+      <div class="hero-label">Studio Zao × ELWA</div>
+      <h1 class="hero-title" style="font-size: clamp(36px, 5vw, 64px); margin-bottom: 16px;">Story Behind<br>the Numbers</h1>
+      <p class="narrative-lead">The data tells a layered story. Most Londoners dispose of clothes through some route other than general waste most of the time. The problem is what happens at the margins — and the margins are where the volumes are growing.</p>
+
+      <div class="section" style="border-top: none; padding-top: 0;">
+        <div class="narrative-prose">
+          <p>The data tells a layered story. Most Londoners — across all four behavioural personas in the research — <em>do</em> dispose of clothes through some route other than general waste most of the time. The headline disposal split shows charity shops at 56%, collection banks at 35%, friends-and-family at 27%, and online resale at 27%. General waste sits at 20% overall. So the system isn't broken at the macro level. The problem is what happens at the margins — and the margins are where the volumes are growing.</p>
+
+          <p>Look at the four clusters. The Accumulator (17.5% of the sample) buys frequently, retains heavily, and when they do dispose, they default to general waste at 27% — the joint-highest rate. They are aware of the accumulation — <em>"I'm a big, maybe too big of a shopper"</em> — but the path from awareness to action stalls at the disposal moment because there's no route that fits their inventory.</p>
+
+          <p>The Pragmatic Replacer (41.8% of the sample) is functionally identical at the disposal end — also 27% to general waste — but the <em>reason</em> is different. They'd recycle if they had a batch worth dealing with, but a single t-shirt isn't worth researching a route for. <em>"You can be lying if I said I did,"</em> said one participant when asked whether they recycle individual items. This is a friction problem, not a values problem.</p>
+
+          <p>The Ethical Keeper (12.7% of the sample) is the values-aligned cluster — high environmental and ethical drivers, lowest general waste rate at 13%, heavy users of charity shops and Vinted. But there's a hidden contradiction: this cluster has the largest secondhand acquisition gap, buying secondhand at much higher rates than they sell. The platform that enables their best behaviour also enables a quieter version of churn.</p>
+
+          <p>The Seasonal Clearer (28% of the sample) has the lowest general waste rate of all (8%) — reframing them as low-throughput rather than disengaged. They're rhythmic, not random. One participant's frustration that <em>"the Oxfam bank is frequently full"</em> and her walk uphill with heavy bags is the structural failure that turns a willing donor into a black-bin user. <em>"I feel kind of shy going to the charity shop to donate"</em> adds an emotional dimension the quant can't see.</p>
+
+          <p><strong>What stakeholders add to this picture is system-level honesty.</strong> A sorting warehouse where reusable rates have fallen from 35% to 27%, where the trader price for sorted stock has dropped from £800 to £100 a ton, and where councils have flipped from paying collectors to <em>charging</em> them. Trust erosion isn't just a feeling — <em>"a little bit of bad advertising has negative impacts across the board."</em> EPR legislation the Treasury is unlikely to approve. The ceiling of design-led solutions: <em>"trust me, people can't be bothered."</em></p>
+
+          <p><strong>Where the system makes things hard</strong> is at the moment of single-item decision (no route that fits the friction), at the listing step for resale (high effort for low return), at the cultural-aesthetic margins (clothes that don't fit the dominant secondhand template), and at the trust layer (people don't believe their donations matter). The post-disposal infrastructure — collection, sorting, processing, market — is straining under volume and quality decline simultaneously. It is, as one stakeholder put it, <em>"like Blockbuster video"</em> — functional but on borrowed time.</p>
+
+          <p><strong>Where we need to intervene:</strong> not in the major flows that already work — charity shops, online resale, collection banks. The system doesn't need another channel. It needs to capture the volume that currently leaks: the single garments that go to general waste because there's no friction-appropriate route, the wardrobe inventory that stays bagged up because the listing effort exceeds the perceived value, and the routine moments where capture would be invisible to the user. That's where the briefs need to point.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-eyebrow">Systemic friction map</div>
+        <h2 class="section-title">Where the system fails each persona</h2>
+        <p class="body-prose" style="margin-bottom: 28px; max-width: 760px;">The map below shows where friction is highest across the disposal journey for each of the four personas. The briefs target the highest-friction stages.</p>
+
+        <div class="friction-map-scroll">
+          <div class="friction-map">
+
+            <!-- Header row -->
+            <div class="fm-row fm-header-row">
+              <div class="fm-cell fm-stage">Journey stage</div>
+              <div class="fm-cell acc-col">The Accumulator<br><span style="font-weight:400;color:var(--muted);font-size:12px;">17.5% of Londoners</span></div>
+              <div class="fm-cell rep-col">The Pragmatic Replacer<br><span style="font-weight:400;color:var(--muted);font-size:12px;">41.8% of Londoners</span></div>
+              <div class="fm-cell keep-col">The Ethical Keeper<br><span style="font-weight:400;color:var(--muted);font-size:12px;">12.7% of Londoners</span></div>
+              <div class="fm-cell clr-col">The Seasonal Clearer<br><span style="font-weight:400;color:var(--muted);font-size:12px;">28.0% of Londoners</span></div>
+            </div>
+
+            <!-- Row 1 -->
+            <div class="fm-row">
+              <div class="fm-cell fm-stage">Recognising clothes to dispose of</div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Items accumulate faster than they're reviewed. The threshold for action is rarely reached.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge low">Low</div>
+                <div class="fm-note">Disposes when clothes wear out or no longer fit. Clear, functional trigger.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge low">Low</div>
+                <div class="fm-note">Deliberate and attentive. Notices when things are unworn.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge med">Medium</div>
+                <div class="fm-note">Needs a seasonal or event-based prompt to trigger the review.</div>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="fm-row">
+              <div class="fm-cell fm-stage">Assessing item condition and worth</div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Quality anxiety: assumes items won't be wanted. 34% cite this as primary barrier.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge med">Medium</div>
+                <div class="fm-note">Functional lens. If it's worn out, it's rubbish. No nuance about repair or resale potential.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">High standards create hesitation. Won't donate to a route they don't trust.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge low">Low</div>
+                <div class="fm-note">Pragmatic about condition. Willing to donate items of mixed quality.</div>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="fm-row">
+              <div class="fm-cell fm-stage">Choosing a disposal route</div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">No low-friction circular option that matches the ease of buying. 71.8% face an information barrier.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Single items aren't worth researching a route for. Defaults to bin if no obvious option.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Institutional distrust blocks action. Can't find a route that feels honest about what happens next.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge low">Low</div>
+                <div class="fm-note">Knows routes well (charity shops, collection banks). Information gap is low.</div>
+              </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="fm-row">
+              <div class="fm-cell fm-stage">Taking action (listing / carrying / dropping off)</div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Bags packed but never leave. Listing effort exceeds perceived reward.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Logistics barrier. 27% general waste rate — effort outweighs intent for most items.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge med">Medium</div>
+                <div class="fm-note">Will act if destination is transparent and trustworthy. Needs visible proof of impact.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">Needs an external trigger or occasion. Infrastructure failures (full banks, far locations) block action.</div>
+              </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="fm-row">
+              <div class="fm-cell fm-stage">Completing the loop</div>
+              <div class="fm-cell">
+                <div class="fm-badge med">Medium</div>
+                <div class="fm-note">When prompted, mostly uses circular routes. 27% general waste rate.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge high">High</div>
+                <div class="fm-note">27% general waste rate — highest alongside Accumulator. Structural, not values-driven.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge low">Low</div>
+                <div class="fm-note">13% general waste rate when acting. The values are there; the route needs to earn trust.</div>
+              </div>
+              <div class="fm-cell">
+                <div class="fm-badge low">Low</div>
+                <div class="fm-note">8% general waste rate when triggered — the most circular persona in action.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <p class="small-note" style="margin-top: 20px;">Friction map built from behavioural survey of 1,014 Londoners and in-depth interviews. Friction levels reflect barrier prevalence data per persona.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-eyebrow">Where we intervene</div>
+        <blockquote class="pull-quote">"The system doesn't need another channel. It needs to capture the volume that currently leaks."</blockquote>
+        <div class="briefs-row">
+          <button class="brief-card" data-go="brief1">
+            <div class="brief-num">Brief 01</div>
+            <div class="brief-name">Closing the Exit Gap</div>
+            <div class="brief-hmw">"How might we make disposing of a garment circularly as low-effort as buying one, without forcing people to become sellers?"</div>
+            <div class="view-link">View brief</div>
+          </button>
+          <button class="brief-card" data-go="brief2">
+            <div class="brief-num">Brief 02</div>
+            <div class="brief-name">The Clearout Occasion</div>
+            <div class="brief-hmw">"How might we create clear-out occasions that trigger action for people who tend to dispose in large batches only when something prompts them?"</div>
+            <div class="view-link">View brief</div>
+          </button>
+          <button class="brief-card" data-go="brief3">
+            <div class="brief-num">Brief 03</div>
+            <div class="brief-name">Closing the Information Gap</div>
+            <div class="brief-hmw">"How might we give people quick, trustworthy confidence that their unwanted garments are worth doing something with, before questions of where they should go even arise?"</div>
+            <div class="view-link">View brief</div>
+          </button>
         </div>
       </div>
 
@@ -1506,12 +1817,13 @@
   Chart.defaults.color = '#000';
   Chart.defaults.font.size = 13;
 
-  const initialised = { overview: false, brief1: false, brief2: false, brief3: false };
+  const initialised = { overview: false, narrative: false, brief1: false, brief2: false, brief3: false };
 
   function initChartsFor(name) {
     return function() {
       if (initialised[name]) return;
       if (name === 'overview') initPersonaDoughnut();
+      if (name === 'narrative') { /* no charts on narrative tab */ }
       if (name === 'brief1') { initAccBuySell(); initPlatformReach(); initDisposalMethods(); }
       if (name === 'brief2') { initWasteRate(); initDisposalFreq(); initDisposalBarriers(); }
       if (name === 'brief3') { initInfoBarrier(); initBarrierType(); }
@@ -1931,6 +2243,20 @@
       }
     });
   }
+
+  // Resize charts when <details> dropdowns open (fixes overlap from zero-height init)
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('details').forEach(d => {
+      d.addEventListener('toggle', function() {
+        if (this.open) {
+          this.querySelectorAll('canvas').forEach(c => {
+            const chart = Chart.getChart(c);
+            if (chart) chart.resize();
+          });
+        }
+      });
+    });
+  });
 
   // Init on load
   document.addEventListener('DOMContentLoaded', () => {
