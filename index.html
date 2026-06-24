@@ -970,6 +970,51 @@
 
   .fm-note { font-size: 13px; color: var(--muted); line-height: 1.4; }
 
+  /* Journey friction map */
+  .friction-map--journey .fm-row--journey {
+    display: grid;
+    grid-template-columns: 160px repeat(5, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  .friction-map--journey .fm-row--journey:last-child { border-bottom: none; }
+
+  .fm-col-header {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--light-grey);
+    padding: 12px 14px;
+    line-height: 1.3;
+  }
+  .fm-col-sub { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 11px; color: var(--muted); }
+
+  .fm-persona-label {
+    font-weight: 700;
+    font-size: 14px;
+    background: #fff;
+    padding: 16px 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Cell states */
+  .fm-state--breakdown { background: #e42544; color: #fff; font-size: 13px; font-weight: 600; padding: 16px 14px; display: flex; align-items: center; line-height: 1.35; }
+  .fm-state--working   { background: #0a6655; color: #fff; font-size: 13px; font-weight: 600; padding: 16px 14px; display: flex; align-items: center; line-height: 1.35; }
+  .fm-state--problems  { background: #fde8ec; color: #7b1d30; font-size: 13px; font-weight: 500; padding: 16px 14px; display: flex; align-items: center; line-height: 1.35; }
+  .fm-state--neutral   { background: #f0f0f0; color: #444; font-size: 13px; font-weight: 400; padding: 16px 14px; display: flex; align-items: center; line-height: 1.35; }
+
+  /* Legend */
+  .fm-legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    align-items: center;
+  }
+  .fm-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .fm-legend-dot { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; display: inline-block; }
+
   /* Responsive — overview additions */
   @media (max-width: 900px) {
     .logo-row { gap: 12px; }
@@ -1257,130 +1302,74 @@
       </div>
 
       <div class="section">
-        <div class="section-eyebrow">Systemic friction map</div>
-        <h2 class="section-title">Where the system fails each persona</h2>
-        <p class="body-prose" style="margin-bottom: 28px; max-width: 760px;">The map below shows where friction is highest across the disposal journey for each of the four personas. The briefs target the highest-friction stages.</p>
+        <div class="section-eyebrow">The journey</div>
+        <h2 class="section-title">Where each type breaks down across the five stages from buying to disposal.</h2>
+        <p class="body-prose" style="margin-bottom: 28px; max-width: 760px; font-style: italic; color: var(--muted);">Read each row from left to right to follow one persona's journey from acquisition to disposal.</p>
 
         <div class="friction-map-scroll">
-          <div class="friction-map">
+          <div class="friction-map friction-map--journey">
 
             <!-- Header row -->
-            <div class="fm-row fm-header-row">
-              <div class="fm-cell fm-stage">Journey stage</div>
-              <div class="fm-cell acc-col">The Accumulator<br><span style="font-weight:400;color:var(--muted);font-size:12px;">17.5% of Londoners</span></div>
-              <div class="fm-cell rep-col">The Pragmatic Replacer<br><span style="font-weight:400;color:var(--muted);font-size:12px;">41.8% of Londoners</span></div>
-              <div class="fm-cell keep-col">The Ethical Keeper<br><span style="font-weight:400;color:var(--muted);font-size:12px;">12.7% of Londoners</span></div>
-              <div class="fm-cell clr-col">The Seasonal Clearer<br><span style="font-weight:400;color:var(--muted);font-size:12px;">28.0% of Londoners</span></div>
+            <div class="fm-row fm-row--journey fm-header-row">
+              <div class="fm-cell fm-stage"></div>
+              <div class="fm-cell fm-col-header">ACQUIRE<br><span class="fm-col-sub">(how they buy)</span></div>
+              <div class="fm-cell fm-col-header">ACCUMULATE<br><span class="fm-col-sub">(what builds up)</span></div>
+              <div class="fm-cell fm-col-header">HOLD<br><span class="fm-col-sub">(while clothes sit)</span></div>
+              <div class="fm-cell fm-col-header">TRIGGER<br><span class="fm-col-sub">(what prompts action)</span></div>
+              <div class="fm-cell fm-col-header">DISPOSE<br><span class="fm-col-sub">(where clothes end up)</span></div>
             </div>
 
-            <!-- Row 1 -->
-            <div class="fm-row">
-              <div class="fm-cell fm-stage">Recognising clothes to dispose of</div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Items accumulate faster than they're reviewed. The threshold for action is rarely reached.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge low">Low</div>
-                <div class="fm-note">Disposes when clothes wear out or no longer fit. Clear, functional trigger.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge low">Low</div>
-                <div class="fm-note">Deliberate and attentive. Notices when things are unworn.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge med">Medium</div>
-                <div class="fm-note">Needs a seasonal or event-based prompt to trigger the review.</div>
-              </div>
+            <!-- Accumulator -->
+            <div class="fm-row fm-row--journey">
+              <div class="fm-cell fm-persona-label" style="border-left: 5px solid var(--accumulator);">The Accumulator</div>
+              <div class="fm-cell fm-state--problems">Buys a lot, often</div>
+              <div class="fm-cell fm-state--problems">More comes in than goes out</div>
+              <div class="fm-cell fm-state--breakdown">Acting feels like too much effort</div>
+              <div class="fm-cell fm-state--neutral">Means to act, but stalls</div>
+              <div class="fm-cell fm-state--working">Uses resale and charity when they do</div>
             </div>
 
-            <!-- Row 2 -->
-            <div class="fm-row">
-              <div class="fm-cell fm-stage">Assessing item condition and worth</div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Quality anxiety: assumes items won't be wanted. 34% cite this as primary barrier.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge med">Medium</div>
-                <div class="fm-note">Functional lens. If it's worn out, it's rubbish. No nuance about repair or resale potential.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">High standards create hesitation. Won't donate to a route they don't trust.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge low">Low</div>
-                <div class="fm-note">Pragmatic about condition. Willing to donate items of mixed quality.</div>
-              </div>
+            <!-- Pragmatic Replacer -->
+            <div class="fm-row fm-row--journey">
+              <div class="fm-cell fm-persona-label" style="border-left: 5px solid var(--replacer);">The Pragmatic Replacer</div>
+              <div class="fm-cell fm-state--working">Buys rarely, only when needed</div>
+              <div class="fm-cell fm-state--working">Keeps a lean wardrobe</div>
+              <div class="fm-cell fm-state--breakdown">Wears things until they are done</div>
+              <div class="fm-cell fm-state--neutral">Acts only when something wears out</div>
+              <div class="fm-cell fm-state--breakdown">Defaults to the bin</div>
             </div>
 
-            <!-- Row 3 -->
-            <div class="fm-row">
-              <div class="fm-cell fm-stage">Choosing a disposal route</div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">No low-friction circular option that matches the ease of buying. 71.8% face an information barrier.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Single items aren't worth researching a route for. Defaults to bin if no obvious option.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Institutional distrust blocks action. Can't find a route that feels honest about what happens next.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge low">Low</div>
-                <div class="fm-note">Knows routes well (charity shops, collection banks). Information gap is low.</div>
-              </div>
+            <!-- Ethical Keeper -->
+            <div class="fm-row fm-row--journey">
+              <div class="fm-cell fm-persona-label" style="border-left: 5px solid var(--keeper);">The Ethical Keeper</div>
+              <div class="fm-cell fm-state--working">Buys mostly second-hand</div>
+              <div class="fm-cell fm-state--working">Roughly balances incomings and outgoings</div>
+              <div class="fm-cell fm-state--breakdown">Holds on out of attachment</div>
+              <div class="fm-cell fm-state--neutral">Lets go steadily over time</div>
+              <div class="fm-cell fm-state--working">Most circular routes of the four personas</div>
             </div>
 
-            <!-- Row 4 -->
-            <div class="fm-row">
-              <div class="fm-cell fm-stage">Taking action (listing / carrying / dropping off)</div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Bags packed but never leave. Listing effort exceeds perceived reward.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Logistics barrier. 27% general waste rate — effort outweighs intent for most items.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge med">Medium</div>
-                <div class="fm-note">Will act if destination is transparent and trustworthy. Needs visible proof of impact.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">Needs an external trigger or occasion. Infrastructure failures (full banks, far locations) block action.</div>
-              </div>
-            </div>
-
-            <!-- Row 5 -->
-            <div class="fm-row">
-              <div class="fm-cell fm-stage">Completing the loop</div>
-              <div class="fm-cell">
-                <div class="fm-badge med">Medium</div>
-                <div class="fm-note">When prompted, mostly uses circular routes. 27% general waste rate.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge high">High</div>
-                <div class="fm-note">27% general waste rate — highest alongside Accumulator. Structural, not values-driven.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge low">Low</div>
-                <div class="fm-note">13% general waste rate when acting. The values are there; the route needs to earn trust.</div>
-              </div>
-              <div class="fm-cell">
-                <div class="fm-badge low">Low</div>
-                <div class="fm-note">8% general waste rate when triggered — the most circular persona in action.</div>
-              </div>
+            <!-- Seasonal Clearer -->
+            <div class="fm-row fm-row--journey" style="border-bottom: none;">
+              <div class="fm-cell fm-persona-label" style="border-left: 5px solid var(--clearer);">The Seasonal Clearer</div>
+              <div class="fm-cell fm-state--neutral">Buys a moderate amount</div>
+              <div class="fm-cell fm-state--neutral">Clutter quietly builds up</div>
+              <div class="fm-cell fm-state--neutral">Feels little pressure to act</div>
+              <div class="fm-cell fm-state--breakdown">Waits for a moment that rarely comes</div>
+              <div class="fm-cell fm-state--breakdown">Good routes, but only in bursts</div>
             </div>
 
           </div>
         </div>
-        <p class="small-note" style="margin-top: 20px;">Friction map built from behavioural survey of 1,014 Londoners and in-depth interviews. Friction levels reflect barrier prevalence data per persona.</p>
+
+        <!-- Legend -->
+        <div class="fm-legend">
+          <div class="fm-legend-item"><span class="fm-legend-dot" style="background:#fde8ec; border: 1px solid #f4b8c4;"></span> Problems building</div>
+          <div class="fm-legend-item"><span class="fm-legend-dot" style="background:#e42544;"></span> Breakdown</div>
+          <div class="fm-legend-item"><span class="fm-legend-dot" style="background:#0a6655;"></span> Working, amplify</div>
+          <div class="fm-legend-item"><span class="fm-legend-dot" style="background:#efefef; border: 1px solid var(--border);"></span> Neutral</div>
+        </div>
+        <p class="small-note" style="margin-top: 12px;">Source: YouGov survey of 1,014 Londoners and 8 in-depth interviews, 2026. Colour shows where a stage is working well, neutral, becoming a problem or breaking down.</p>
       </div>
 
       <div class="section">
