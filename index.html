@@ -49,7 +49,6 @@
 
   /* Top nav */
   header {
-    border-bottom: 1px solid var(--border);
     background: #fff;
     position: sticky;
     top: 0;
@@ -59,9 +58,9 @@
   .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 0;
+    padding: 12px 0 10px;
     gap: 16px;
+    border-bottom: 1px solid var(--border);
   }
 
   .brand {
@@ -87,11 +86,25 @@
     object-fit: contain;
   }
 
+  /* Tab bar — always one scrollable row */
+  .tab-bar-outer {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
   .tabs {
     display: flex;
-    gap: 2px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 0;
+    /* bleed to container edges so scroll starts flush */
+    margin: 0 -32px;
+    padding: 0 32px;
   }
+
+  .tabs::-webkit-scrollbar { display: none; }
 
   .tab {
     background: none;
@@ -100,11 +113,18 @@
     font-size: 13px;
     font-weight: 500;
     color: var(--muted);
-    padding: 8px 10px;
+    padding: 10px 12px;
     cursor: pointer;
     position: relative;
     transition: color 0.15s ease;
     white-space: nowrap;
+    flex-shrink: 0;
+    /* reset iOS/Android default button styling */
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-fill-color: currentColor;
+    text-decoration: none;
+    outline: none;
   }
 
   .tab:hover { color: var(--text); }
@@ -114,14 +134,16 @@
     font-weight: 600;
   }
 
+  /* underline sits exactly on the border-bottom of .tab-bar-outer */
   .tab.active::after {
     content: '';
     position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: -13px;
+    left: 12px;
+    right: 12px;
+    bottom: -1px;
     height: 2px;
     background: var(--red);
+    z-index: 1;
   }
 
   main { flex: 1; padding: 56px 0 80px; }
@@ -346,6 +368,11 @@
     flex-direction: column;
     text-align: left;
     font-family: inherit;
+    color: var(--text);
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-fill-color: currentColor;
+    outline: none;
   }
 
   .brief-card:hover {
@@ -1025,22 +1052,6 @@
     .persona-grid-overview .persona-card { flex-direction: column; }
     .persona-card-img { width: 100%; height: 180px; object-fit: cover; }
 
-    /* Nav: stack logo + scrollable tabs */
-    .nav-inner { flex-direction: column; align-items: flex-start; gap: 0; padding: 10px 0 0; }
-    .logo-row { padding-bottom: 10px; }
-    .tabs {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      width: calc(100% + 64px);
-      margin: 0 -32px;
-      padding: 0 32px 12px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      gap: 0;
-    }
-    .tabs::-webkit-scrollbar { display: none; }
-    .tab.active::after { bottom: 0; }
-
     /* Briefs + grids */
     .briefs-row { grid-template-columns: 1fr; }
     .stat-row { grid-template-columns: 1fr; gap: 24px; padding-bottom: 40px; }
@@ -1055,7 +1066,7 @@
 
   @media (max-width: 600px) {
     .container { padding: 0 16px; }
-    .tabs { width: calc(100% + 32px); margin: 0 -16px; padding: 0 16px 10px; }
+    .tabs { margin: 0 -16px; padding: 0 16px; }
     .persona-grid-overview { grid-template-columns: 1fr; }
     .stat-callouts { grid-template-columns: 1fr; }
     .persona-top > div:last-child { display: none; }
@@ -1085,6 +1096,10 @@
         <img src="images/logos/elwa-logo.png" alt="ELWA">
         <img src="images/logos/nlwa-logo.png" alt="NLWA">
       </div>
+    </div>
+  </div>
+  <div class="tab-bar-outer">
+    <div class="container">
       <nav class="tabs" role="tablist">
         <button class="tab active" data-tab="overview" role="tab">Overview</button>
         <button class="tab" data-tab="narrative" role="tab">Story Behind the Numbers</button>
