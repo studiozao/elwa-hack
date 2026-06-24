@@ -1,0 +1,22 @@
+name: Deploy to elwa-hack.studiozao.com
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/meanwhile-mapper/elwa-hack-repo
+            git pull
+            sudo cp -r index.html /var/www/elwa-hack/
+            sudo cp -r images /var/www/elwa-hack/
