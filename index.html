@@ -625,7 +625,7 @@
     font-weight: 500;
   }
 
-  .chart-canvas { max-height: 280px; }
+  .chart-canvas { max-height: 400px; }
 
   /* Layout B — side by side */
   .persona-grid {
@@ -1477,12 +1477,12 @@
       <div class="sub-section">
         <h3 class="sub-title">Data context</h3>
         <p class="chart-title">Where they can be reached</p>
-        <div class="chart-wrap" style="height: 220px;">
-          <canvas id="chartPlatformReach" class="chart-canvas" style="max-height: 220px;"></canvas>
+        <div class="chart-wrap" style="height: 340px;">
+          <canvas id="chartPlatformReach" class="chart-canvas" style="max-height: 340px;"></canvas>
         </div>
         <p class="chart-title">Where clothes are going now</p>
-        <div class="chart-wrap" style="height: 220px;">
-          <canvas id="chartDisposalMethods" class="chart-canvas" style="max-height: 220px;"></canvas>
+        <div class="chart-wrap" style="height: 280px;">
+          <canvas id="chartDisposalMethods" class="chart-canvas" style="max-height: 280px;"></canvas>
         </div>
       </div>
 
@@ -1587,12 +1587,12 @@
       <div class="sub-section">
         <h3 class="sub-title">Data context</h3>
         <p class="chart-title">How often do they clear out?</p>
-        <div class="chart-wrap" style="height: 200px;">
-          <canvas id="chartDisposalFreq" class="chart-canvas" style="max-height: 200px;"></canvas>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="chartDisposalFreq" class="chart-canvas" style="max-height: 240px;"></canvas>
         </div>
         <p class="chart-title">What's stopping them disposing more?</p>
-        <div class="chart-wrap" style="height: 260px;">
-          <canvas id="chartDisposalBarriers" class="chart-canvas" style="max-height: 260px;"></canvas>
+        <div class="chart-wrap" style="height: 340px;">
+          <canvas id="chartDisposalBarriers" class="chart-canvas" style="max-height: 340px;"></canvas>
         </div>
       </div>
 
@@ -1696,8 +1696,8 @@
       <div class="sub-section">
         <h3 class="sub-title">Data context</h3>
         <p class="chart-title">What's blocking disposal — barrier type by persona</p>
-        <div class="chart-wrap" style="height: 280px;">
-          <canvas id="chartBarrierType" class="chart-canvas" style="max-height: 280px;"></canvas>
+        <div class="chart-wrap" style="height: 360px;">
+          <canvas id="chartBarrierType" class="chart-canvas" style="max-height: 360px;"></canvas>
         </div>
       </div>
 
@@ -1980,22 +1980,19 @@
             label: 'The Accumulator',
             data: [52, 74, 61, 65, 42, 38],
             backgroundColor: 'rgba(245, 158, 11, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Ethical Keeper',
             data: [44, 58, 31, 55, 38, 29],
             backgroundColor: 'rgba(16, 185, 129, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Pragmatic Replacer',
             data: [61, 41, 22, 48, 35, 17],
             backgroundColor: 'rgba(59, 130, 246, 0.6)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           }
         ]
       },
@@ -2003,6 +2000,7 @@
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        datasets: { bar: { maxBarThickness: 14, barPercentage: 0.7, categoryPercentage: 0.75 } },
         plugins: {
           legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
           tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.x + '%'; } } }
@@ -2033,15 +2031,13 @@
             label: 'The Accumulator',
             data: [48, 41, 34, 28, 27],
             backgroundColor: 'rgba(245, 158, 11, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Ethical Keeper',
             data: [61, 52, 18, 35, 13],
             backgroundColor: 'rgba(16, 185, 129, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           }
         ]
       },
@@ -2049,6 +2045,7 @@
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        datasets: { bar: { maxBarThickness: 16, barPercentage: 0.7, categoryPercentage: 0.75 } },
         plugins: {
           legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
           tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.x + '%'; } } }
@@ -2079,22 +2076,19 @@
             label: 'Every few months',
             data: [14, 22, 11],
             backgroundColor: 'rgba(139, 92, 246, 0.85)',
-            borderRadius: 3,
-            barThickness: 14
+            borderRadius: 3
           },
           {
             label: 'Once or twice a year',
             data: [38, 31, 28],
             backgroundColor: 'rgba(139, 92, 246, 0.45)',
-            borderRadius: 3,
-            barThickness: 14
+            borderRadius: 3
           },
           {
             label: 'Less than once a year',
             data: [29, 24, 35],
             backgroundColor: 'rgba(139, 92, 246, 0.2)',
-            borderRadius: 3,
-            barThickness: 14
+            borderRadius: 3
           }
         ]
       },
@@ -2102,6 +2096,7 @@
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        datasets: { bar: { maxBarThickness: 16, barPercentage: 0.7, categoryPercentage: 0.75 } },
         plugins: {
           legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
           tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.x + '%'; } } }
@@ -2111,10 +2106,9 @@
             beginAtZero: true,
             max: 60,
             ticks: { callback: v => v + '%' },
-            grid: { color: '#e5e5e5' },
-            stacked: false
+            grid: { color: '#e5e5e5' }
           },
-          y: { grid: { display: false }, stacked: false }
+          y: { grid: { display: false } }
         }
       }
     });
@@ -2133,22 +2127,19 @@
             label: 'The Seasonal Clearer',
             data: [44, 28, 32, 21, 51],
             backgroundColor: 'rgba(139, 92, 246, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Ethical Keeper',
             data: [31, 38, 27, 42, 29],
             backgroundColor: 'rgba(16, 185, 129, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Pragmatic Replacer',
             data: [48, 34, 29, 18, 38],
             backgroundColor: 'rgba(59, 130, 246, 0.6)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           }
         ]
       },
@@ -2156,6 +2147,7 @@
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        datasets: { bar: { maxBarThickness: 14, barPercentage: 0.7, categoryPercentage: 0.75 } },
         plugins: {
           legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
           tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.x + '%'; } } }
@@ -2180,35 +2172,31 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Quality anxiety\n(item won\'t be wanted)', 'Route uncertainty\n(don\'t know where to go)', 'Trust / transparency\n(don\'t know what happens)', 'Salience\n(hasn\'t thought about it)'],
+        labels: ['Quality anxiety (item won\'t be wanted)', 'Route uncertainty (don\'t know where to go)', 'Trust / transparency (don\'t know what happens)', 'Salience (hasn\'t thought about it)'],
         datasets: [
           {
             label: 'The Accumulator',
             data: [34, 28, 18, 22],
             backgroundColor: 'rgba(245, 158, 11, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Ethical Keeper',
             data: [19, 31, 42, 14],
             backgroundColor: 'rgba(16, 185, 129, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Pragmatic Replacer',
             data: [24, 38, 15, 31],
             backgroundColor: 'rgba(59, 130, 246, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           },
           {
             label: 'The Seasonal Clearer',
             data: [21, 25, 22, 40],
             backgroundColor: 'rgba(139, 92, 246, 0.85)',
-            borderRadius: 3,
-            barThickness: 10
+            borderRadius: 3
           }
         ]
       },
@@ -2216,6 +2204,7 @@
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        datasets: { bar: { maxBarThickness: 14, barPercentage: 0.65, categoryPercentage: 0.75 } },
         plugins: {
           legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } },
           tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.x + '%'; } } }
